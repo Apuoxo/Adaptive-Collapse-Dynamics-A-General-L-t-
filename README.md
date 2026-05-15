@@ -103,3 +103,60 @@ v = \frac{L^2}{t + \epsilon}
 git clone https://github.com/yourusername/adaptive-collapse-dynamics.git
 cd adaptive-collapse-dynamics
 pip install -r requirements.txt
+
+
+from ace import ACEKVCache
+from transformers import AutoModelForCausalLM, AutoTokenizer
+
+model = AutoModelForCausalLM.from_pretrained("meta-llama/Llama-2-7b-hf")
+tokenizer = AutoTokenizer.from_pretrained("meta-llama/Llama-2-7b-hf")
+
+# Wrap model with ACE
+ace_model = ACEKVCache(model, cache_budget=1024, epsilon=1e-8)
+
+
+📁 Repository Structure
+
+.
+├── ace/
+│   ├── __init__.py
+│   ├── cache.py          # KV-cache with min-heap eviction
+│   ├── utility_mlp.py    # 2-layer MLP for w prediction
+│   └── trainer.py        # Training on C4 with cumulative attention
+├── experiments/
+│   ├── pg19_eval.py
+│   ├── needle_test.py
+│   └── longbench_eval.py
+├── checkpoints/          # Pretrained utility MLP
+├── requirements.txt
+└── README.md
+
+
+
+📝 Limitations
+
+· MLP trained only on C4 (not verified on code/medical text)
+· Tested only on LLaMA-2 7B (not on 70B or other architectures)
+· Biological/linguistic analogies are suggestive, not experimentally validated
+
+---
+
+📖 Citation
+
+```bibtex
+@article{usychenko2026adaptive,
+  title={Adaptive Collapse Dynamics: A General L²/t Principle from Gene Regulation to Transformer KV-Cache},
+  author={Usychenko, Stanislav},
+  year={2026},
+  month={May}
+}
+```
+
+---
+
+📚 References
+
+· [1] Shannon, C.E. (1948). A Mathematical Theory of Communication.
+· [2] Prigogine, I. (1977). Time, Structure and Fluctuations (Nobel Lecture).
+· [3] Zhang et al. (2023). H2O: Heavy-Hitter Oracle. NeurIPS.
+· [4] Xiao et al. (2023). StreamingLLM. arXiv:2309.17453
