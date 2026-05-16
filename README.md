@@ -100,7 +100,7 @@ v = \frac{L^2}{t + \epsilon}
 ## 🚀 Quick Start
 
 ```bash
-git clone https://github.com/yourusername/adaptive-collapse-dynamics.git
+git clone https://github.com/yэApuoxo/adaptive-collapse-dynamics.git
 cd adaptive-collapse-dynamics
 pip install -r requirements.txt
 
